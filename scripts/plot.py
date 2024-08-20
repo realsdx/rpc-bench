@@ -45,7 +45,7 @@ def plot_latencies(grpc_latencies, ttrpc_latencies):
     
     # Create a text box with statistics
     stats_text = (
-        "gRPC Statistics (ms):\n"
+        "gRPC Statistics (µs):\n"
         f"Avg: {grpc_stats['avg']:.2f}\n"
         f"Median: {grpc_stats['median']:.2f}\n"
         f"P50: {grpc_stats['p50']:.2f}\n"
@@ -53,7 +53,7 @@ def plot_latencies(grpc_latencies, ttrpc_latencies):
         f"P99: {grpc_stats['p99']:.2f}"
     )
     stats_text2 = (
-        "ttrpc Statistics (ms):\n"
+        "ttrpc Statistics (µs):\n"
         f"Avg: {ttrpc_stats['avg']:.2f}\n"
         f"Median: {ttrpc_stats['median']:.2f}\n"
         f"P50: {ttrpc_stats['p50']:.2f}\n"
@@ -70,7 +70,7 @@ def plot_latencies(grpc_latencies, ttrpc_latencies):
     
     # Customize the plot
     plt.xlabel('Request Number', fontsize=12)
-    plt.ylabel('Latency (ms)', fontsize=12)
+    plt.ylabel('Latency (µs)', fontsize=12)
     plt.title('Latency Comparison: gRPC vs ttRPC', fontsize=16, fontweight='bold')
     plt.legend(fontsize=10, loc='upper right')
     
@@ -88,10 +88,11 @@ def main(limit=-1):
     grpc_latencies = read_latencies('output/grpc_latencies.txt')
     ttrpc_latencies = read_latencies('output/ttrpc_latencies.txt')
     
-    grpc_latencies_ms = microseconds_to_milliseconds(grpc_latencies[:limit])
-    ttrpc_latencies_ms = microseconds_to_milliseconds(ttrpc_latencies[:limit])
-    
-    plot_latencies(grpc_latencies_ms, ttrpc_latencies_ms)
+    # grpc_latencies_ms = microseconds_to_milliseconds(grpc_latencies[:limit])
+    # ttrpc_latencies_ms = microseconds_to_milliseconds(ttrpc_latencies[:limit])
+    # plot_latencies(grpc_latencies_ms, ttrpc_latencies_ms)
+
+    plot_latencies(grpc_latencies[:limit], ttrpc_latencies[:limit])
 
 if __name__ == "__main__":
     import sys
