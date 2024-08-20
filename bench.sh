@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 # Function to display help text
 show_help() {
     echo "Usage: $0 -c <concurrency> -t <time>"
@@ -32,27 +34,33 @@ if [[ -z "$concurrency" || -z "$time" ]]; then
 fi
 
 # Run the grpc & ttrpc servers , output is redirected to /dev/null
-echo "Starting grpc and ttrpc servers..."
+echo "Starting grpc test server at port 50051"
 go run testservers/grpc/main.go  -port=50051 > /dev/null 2>&1 &
+
+echo "Starting ttrpc test server at port 50052"
 go run testservers/ttrpc/main.go -port=50052 > /dev/null 2>&1 &
 
 sleep 2
 
 # Run tbench binary
+echo ""
 echo "Benchmarking ttrpc server..."
 ./tbench -c="$concurrency" -t="$time" 127.0.0.1:50052
 
 # Run gbench binary
+echo ""
 echo "Benchmarking grpc server..."
 ./gbench -c="$concurrency" -t="$time" 127.0.0.1:50051
 
 echo "Benchmarking completed"
 
 # Kill the servers
-echo "Killing servers..."
+echo "Killing test servers..."
 lsof -i :50051 | awk 'NR!=1 {print $2}' | xargs kill -9
 lsof -i :50052 | awk 'NR!=1 {print $2}' | xargs kill -9
 
 # Run the python script in scripts/plot.py to generate the plot, takes first 10000 latency values
 # Change the sigma values in script to smooth the plot as required
 python3 scripts/plot.py 5000
+
+echo "Done!"

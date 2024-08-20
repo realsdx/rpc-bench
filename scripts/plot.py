@@ -82,7 +82,7 @@ def plot_latencies(grpc_latencies, ttrpc_latencies):
     
     # Save and show the plot
     plt.savefig('output/latency_comparison.png', dpi=300, bbox_inches='tight')
-    plt.show()
+    print('Latency comparison plot saved to output/latency_comparison.png')
 
 def main(limit=-1):
     grpc_latencies = read_latencies('output/grpc_latencies.txt')
