@@ -24,8 +24,8 @@ go.work.sum
 # env file
 .env
 
-data
-gbench
-tbench
+data/
+./gbench
+./tbench
 *latencies.txt
 latency_*.png
