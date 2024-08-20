@@ -30,7 +30,7 @@ func (req *GRPCRequester) Close() {
 	req.conn.Close()
 }
 
-// make ttrpc request to server
+// make grpc request to server
 func (req *GRPCRequester) CallRPC() time.Duration {
 	// Contact the server and print out its response.
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
@@ -97,7 +97,7 @@ mainLoop:
 					// logger.Info().Msgf("Timeout occured after %d seconds", r.Duration)
 					stopLoop <- struct{}{}
 				default:
-					// make ttrpc request
+					// make grpc request
 					latency := req.CallRPC()
 
 					latencies = append(latencies, latency)
