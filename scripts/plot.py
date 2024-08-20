@@ -71,7 +71,7 @@ def plot_latencies(grpc_latencies, ttrpc_latencies):
     # Customize the plot
     plt.xlabel('Request Number', fontsize=12)
     plt.ylabel('Latency (ms)', fontsize=12)
-    plt.title('Latency Comparison: gRPC vs ttrpc', fontsize=16, fontweight='bold')
+    plt.title('Latency Comparison: gRPC vs ttRPC', fontsize=16, fontweight='bold')
     plt.legend(fontsize=10, loc='upper right')
     
     # Customize ticks

@@ -45,11 +45,13 @@ sleep 2
 # Run tbench binary
 echo ""
 echo "Benchmarking ttrpc server..."
+echo "Concurrency: $concurrency | Time: $time seconds"
 ./tbench -c="$concurrency" -t="$time" 127.0.0.1:50052
 
 # Run gbench binary
 echo ""
 echo "Benchmarking grpc server..."
+echo "Concurrency: $concurrency | Time: $time seconds"
 ./gbench -c="$concurrency" -t="$time" 127.0.0.1:50051
 
 echo "Benchmarking completed"
